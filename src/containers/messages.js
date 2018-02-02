@@ -17,21 +17,10 @@ const withConnection = connect(
   }) 
 );
 
-const Wrapper = Styled.div`
-  flex: 1; 
-  display: flex; 
-
-  > div { 
-    flex: 1;
-  }
-`;
-
 export default withConnection(({ className, focus, messages, next }) => (
-  <Wrapper>
-    <InfiniteScroll next={next} hasMore={true} loader={<Loading />}>
-      {messages.map(message => 
-        <Message key={message.id} focused={focus === message.id} { ...message } />
-      )}
-    </InfiniteScroll>
-  </Wrapper>
+  <InfiniteScroll next={next} hasMore={true} loader={<Loading />}>
+    {messages.map(message => 
+      <Message key={message.id} focused={focus === message.id} { ...message } />
+    )}
+  </InfiniteScroll>
 ));
