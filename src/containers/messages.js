@@ -1,7 +1,6 @@
 import React from 'react';
-import Styled from 'styled-components';
 import { connect } from 'react-redux'
-import InfiniteScroll from 'react-infinite-scroll-component';
+import Infinite from 'react-infinite-scroll-component';
 
 import { messages } from '../ducks';
 import { Loading } from '../components';
@@ -17,10 +16,12 @@ const withConnection = connect(
   }) 
 );
 
-export default withConnection(({ className, focus, messages, next }) => (
-  <InfiniteScroll next={next} hasMore={true} loader={<Loading />}>
+const height = window.innerHeight;
+
+export default withConnection(({ className, focus, messages, next }) => 
+  <Infinite height={height} next={next} hasMore={true} loader={<Loading />}>
     {messages.map(message => 
       <Message key={message.id} focused={focus === message.id} { ...message } />
     )}
-  </InfiniteScroll>
-));
+  </Infinite>
+);

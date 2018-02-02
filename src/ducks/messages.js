@@ -6,7 +6,7 @@ export const LOAD_ERROR  = 'synap/messages/load/error';
 
 export const setFocus = payload => dispatch => dispatch({ type: FOCUS,  payload });
 
-export const load = (count=10) => (dispatch, state) => { 
+export const load = (count=20) => (dispatch, state) => { 
   
   const { messages: { start } } = state(); 
 
