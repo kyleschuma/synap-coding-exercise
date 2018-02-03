@@ -1,10 +1,8 @@
 import React from 'react';
-import Styled from 'styled-components';
 import { connect } from 'react-redux'
-import Infinite from 'react-infinite-scroll-component';
 
 import { messages } from '../ducks';
-import { Loading } from '../components';
+import { Messages } from '../components';
 import Message from './message';
 
 const withConnection = connect(
@@ -17,20 +15,10 @@ const withConnection = connect(
   }) 
 );
 
-const Wrapper = Styled.section`
-  flex: 1; 
-  display: flex; 
-  > div { 
-    flex: 1;
-  }
-`;
-
-export default withConnection(({ className, focus, messages, next }) => 
-  <Wrapper>
-    <Infinite hasMore={true} height={window.innerHeight} loader={<Loading />} next={next}>
-      {messages.map(message => 
-        <Message key={message.id} focused={focus === message.id} { ...message } />
-      )}
-    </Infinite>
-  </Wrapper>
+export default withConnection(({ focus, messages, next }) => 
+  <Messages next={next}>
+    {messages.map(message => 
+      <Message key={message.id} focused={focus === message.id} { ...message } />
+    )}
+  </Messages>
 );

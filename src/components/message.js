@@ -26,7 +26,7 @@ const Header = Styled.header`
   p { 
     font-size: .8rem;
     font-weight: 500;
-    line-height: 1rem;
+    line-height: 2rem;
   }
 `;
 const Body = Styled.p`
