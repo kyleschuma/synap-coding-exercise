@@ -32,7 +32,7 @@ export default (state=initialState, { type, payload }) => {
       return { 
         ...state, 
         ...payload.reduce((result, email) => {
-          result[email] = {};
+          result[email] = { email, name: email };
           return result;
         }, {}) 
       };

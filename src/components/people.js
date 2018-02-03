@@ -31,7 +31,7 @@ const Row = Styled.div`
   flex-direction: column;
 `
 
-const Person = ({ avatar, company, name }) => (
+const Person2 = ({ avatar, company, name }) => (
   <Row>
     <Col>
       <Avatar alt={name} url={avatar} title={name} />
@@ -42,6 +42,11 @@ const Person = ({ avatar, company, name }) => (
     </Col>
     {company && <Description>{company.description}</Description>} 
   </Row>
+);
+
+
+const Person = ({ avatar, company, name }) => (
+  <Avatar alt={name} url={avatar} title={name} />    
 );
 
 export const People = ({ cc, from, to }) => 

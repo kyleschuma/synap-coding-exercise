@@ -12,7 +12,22 @@ const Header = Styled.header`
   background: ${props => props.focused ? '#f0f0f0' : 'inherit'};
   cursor: pointer;
   display: flex; 
-  flex-direction: row; 
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem; 
+
+  h1 { 
+    color: ${props => props.focused ? '#1294A1' : 'inherit'};
+    font-size: 1.6rem;
+    font-weight: 100;
+    line-height: 2rem;
+  }
+
+  p { 
+    font-size: .8rem;
+    font-weight: 500;
+    line-height: 1rem;
+  }
 `;
 const Body = Styled.p`
   margin: 1rem;
@@ -22,11 +37,8 @@ const Body = Styled.p`
 export const Message = ({ id, body, focused, from, subject, to, setFocus }) => (
   <Wrapper>
     <Header focused={focused} onClick={() => setFocus(id)}>
-      <Avatar alt={from.name} url={from.avatar} />
-      <Title
-        focused={focused} 
-        text={subject} 
-        sub={from.name && to.name ? `${from.name}, ${to.name}` : ''} />
+      <h1>{subject}</h1>
+      <p>{from.name}, {to.name}</p>
     </Header>
     { focused && <Body>{body}</Body> }
   </Wrapper>

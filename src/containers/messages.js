@@ -1,4 +1,5 @@
 import React from 'react';
+import Styled from 'styled-components';
 import { connect } from 'react-redux'
 import Infinite from 'react-infinite-scroll-component';
 
@@ -16,12 +17,20 @@ const withConnection = connect(
   }) 
 );
 
-const height = window.innerHeight;
+const Wrapper = Styled.section`
+  flex: 1; 
+  display: flex; 
+  > div { 
+    flex: 1;
+  }
+`;
 
 export default withConnection(({ className, focus, messages, next }) => 
-  <Infinite height={height} next={next} hasMore={true} loader={<Loading />}>
-    {messages.map(message => 
-      <Message key={message.id} focused={focus === message.id} { ...message } />
-    )}
-  </Infinite>
+  <Wrapper>
+    <Infinite hasMore={true} height={window.innerHeight} loader={<Loading />} next={next}>
+      {messages.map(message => 
+        <Message key={message.id} focused={focus === message.id} { ...message } />
+      )}
+    </Infinite>
+  </Wrapper>
 );

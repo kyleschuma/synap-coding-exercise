@@ -22,15 +22,17 @@ const withConnect = compose(
 );
 
 export default withConnect(({ id, body, from, focused, people, subject, to, setFocus }) => {
+  
   const props = { 
     id,
     body, 
-    from: people[from] || {},
+    from: people[from] || { name: from },
     focused,
     subject,
-    to: people[to] || {},
+    to: people[to] || { name: to },
 
     setFocus,
   };
+  console.log(props);
   return <Message { ...props } />
 });
