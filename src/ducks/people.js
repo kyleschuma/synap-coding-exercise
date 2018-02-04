@@ -1,4 +1,3 @@
-export const FOCUS       = 'synap/people/focus';
 export const LOAD        = 'synap/people/load';
 export const LOAD_RESULT = 'synap/people/load/result';
 export const LOAD_ERROR  = 'synap/people/load/error';
@@ -6,9 +5,7 @@ export const LOAD_ERROR  = 'synap/people/load/error';
 
 const fetchPerson = email =>   
   fetch(`https://morning-falls-3769.herokuapp.com/api/people/${email}`)
-    .then(res => res.json())
-
-export const setFocus = payload => ({ type: FOCUS, payload });
+    .then(res => res.json());
 
 export const load = emails => (dispatch, state) => { 
   
@@ -26,41 +23,31 @@ export const load = emails => (dispatch, state) => {
 };  
 
 
-const initialState = { 
-  focus: undefined, 
-  results: {}
-};
+const initialState = {};
 
 export default (state=initialState, { type, payload }) => {
   
   switch (type) { 
-    case FOCUS: 
-      return { ...state, focus: payload };
-      
-    case LOAD: 
-      return { 
-        ...state, 
-        results: {  
-          ...state.results,
-          ...payload.reduce((result, email) => {
-            result[email] = { email, name: email };
-            return result;
-          }, {}) 
-        },
-      };
-    
-    case LOAD_RESULT: 
-      return {
-        ...state, 
-        results: {  
-          ...state.results,
-          ...payload.reduce((result, person) => {
-            result[person.email] = person;
-            return result;
-          }, {}) 
-        },
-      };
   
-    default: return state; 
+  case LOAD: 
+    return { 
+      ...state, 
+      ...payload.reduce((result, email) => {
+        result[email] = { email, name: email };
+        return result;
+      }, {}), 
+    };
+  
+  case LOAD_RESULT: 
+    return {
+      ...state, 
+      ...payload.reduce((result, person) => {
+        result[person.email] = person;
+        return result;
+      }, {}), 
+    };
+  
+  default: 
+    return state; 
   }
 };

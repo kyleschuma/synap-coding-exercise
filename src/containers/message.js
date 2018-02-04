@@ -7,7 +7,7 @@ import { Message } from '../components';
 
 const withConnect = compose(
   connect(
-    ({ people }) => ({ people: people.results }),
+    ({ people }) => ({ people }),
     dispatch => ({ 
       load: emails => dispatch(people.load(emails)),
       setFocus: id => dispatch(messages.setFocus(id)),
@@ -33,6 +33,5 @@ export default withConnect(({ id, body, from, focused, people, subject, to, setF
 
     setFocus,
   };
-  console.log(props);
-  return <Message { ...props } />
+  return <Message { ...props } />;
 });

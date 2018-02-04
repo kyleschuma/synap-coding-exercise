@@ -28,32 +28,40 @@ export default (state=initialState, { type, payload }) => {
   
   switch (type) { 
 
-    case FOCUS: 
-      return { 
-        ...state, 
-        focus: state.focus === payload ? undefined : payload 
-      };
+  case FOCUS: 
+    return { 
+      ...state, 
+      focus: state.focus === payload ? undefined : payload 
+    };
 
-    case LOAD: 
-      return { 
-        ...state, 
-        loading: true 
-      };
-    
-    case LOAD_RESULT: 
-      return {
-        ...state, 
-        loading: false, 
-        results: {
-          ...state.results,
-          ...payload.results.reduce((result, message) => { 
-            result[message.id] = message;
-            return result;
-          }, {}),
-        },
-        start: payload.start
-      };
+  case LOAD: 
+    return { 
+      ...state, 
+      error: undefined,
+      loading: true, 
+    };
   
-    default: return state; 
+  case LOAD_RESULT: 
+    return {
+      ...state, 
+      error: undefined,
+      loading: false, 
+      results: {
+        ...state.results,
+        ...payload.results.reduce((result, message) => { 
+          result[message.id] = message;
+          return result;
+        }, {}),
+      },
+      start: payload.start
+    };
+  case LOAD_ERROR: 
+    return { 
+      ...state, 
+      error: payload,
+      loading: false, 
+    };
+
+  default: return state; 
   }
 };

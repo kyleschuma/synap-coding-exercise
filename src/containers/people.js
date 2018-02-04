@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import { people } from '../ducks';
 import { People } from '../components';
@@ -12,9 +12,9 @@ const withConnection = connect(
     const { cc, from, to } = messages.results[messages.focus] || {};
 
     return { 
-      cc: cc.map(email => people.results[email]),
-      from: people.results[from],
-      to: people.results[to],
+      cc: cc.map(email => people[email]),
+      from: people[from],
+      to: people[to],
     };
   }, 
   dispatch => ({ 

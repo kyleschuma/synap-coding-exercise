@@ -5,6 +5,7 @@ export const Layout = Styled(({ className, search, people, messages, error }) =>
   <div className={className}>
     {people}
     <section className="content">
+      {error}
       {search}
       {messages}
     </section>
