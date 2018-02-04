@@ -3,6 +3,7 @@ import Styled from 'styled-components';
 
 const Wrapper = Styled.div`
   display: flex; 
+  cursor: ${props => props.onClick === undefined ? 'inherit' : 'pointer'};
   flex-direction: column;
   align-items: center;
   margin: .25rem;
@@ -22,8 +23,8 @@ const Title = Styled.p`
   line-height: 1rem;
 `;
 
-export const Avatar = ({ alt, url, title }) => (
-  <Wrapper> 
+export const Avatar = ({ alt, url, title, onHover, onOut }) => (
+  <Wrapper onMouseOver={onHover} onMouseOut={onOut}> 
     <Img src={url} alt={alt} />
     {title && <Title>{title}</Title>}
   </Wrapper>

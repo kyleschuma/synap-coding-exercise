@@ -7,7 +7,7 @@ import { Message } from '../components';
 
 const withConnect = compose(
   connect(
-    ({ people }) => ({ people }),
+    ({ people }) => ({ people: people.results }),
     dispatch => ({ 
       load: emails => dispatch(people.load(emails)),
       setFocus: id => dispatch(messages.setFocus(id)),

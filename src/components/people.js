@@ -1,5 +1,7 @@
 import React from 'react'; 
 import Styled from 'styled-components';
+import { withStateHandlers } from 'recompose';
+import Popover from 'react-popover';
 
 import { Avatar } from './avatar';
 
@@ -17,51 +19,71 @@ const Title = Styled.h2`
   line-height: 2rem;
   margin: .5rem;
 `;
-const Description = Styled.p`
-  font-size: .8rem;
-  margin: .5rem;
-  margin-left: 2rem;
-`;
-const Col = Styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-const Row = Styled.div`
+
+const withPopoverState = withStateHandlers(
+  ({ showing=false }) => ({ showing }),
+  {
+    hide: () => () => ({ showing: false }),
+    show: () => () => ({ showing: true }),
+  } 
+);
+
+const Company = Styled(({ className, description, logo, name }) =>
+  <div className={className}>
+    <img alt={name} src={logo} />
+    <div>
+      <h2>{name}</h2>
+      <p>{description}</p>
+    </div>
+  </div>
+)`
   display: flex; 
-  flex-direction: column;
-`
+  flex-direction: row;
+  justify-content: center;
+  background: #fff;
+  border: #f0f0f0 solid 1px;
+  padding: 1rem;
 
-const Person2 = ({ avatar, company, name }) => (
-  <Row>
-    <Col>
-      <Avatar alt={name} url={avatar} title={name} />
-      {
-        company && 
-        <Avatar alt={company.name} url={company.logo} title={company.name} />
-      }
-    </Col>
-    {company && <Description>{company.description}</Description>} 
-  </Row>
+  img { 
+    height: 4rem;
+    margin-right: 1rem;
+  }
+  h2 { 
+    font-size: 1.2rem;
+    font-weight: 100;
+    line-height: 2rem;
+  }
+  p { 
+    font-size: .8rem;
+    font-weight: 100;
+    line-height: 1rem;
+  }
+`;
+
+const Person = withPopoverState(({ avatar, company, email, name, showing, hide, show }) => 
+  <Popover 
+    isOpen={company && showing} 
+    body={<Company {...company} />}
+    preferPlace="right">
+    <Avatar alt={name} url={avatar} title={name} 
+      onHover={() => show()} 
+      onOut={() => hide()} /> 
+  </Popover>   
 );
 
-
-const Person = ({ avatar, company, name }) => (
-  <Avatar alt={name} url={avatar} title={name} />    
-);
-
-export const People = ({ cc, from, to }) => 
+export const People = ({ cc, from, to, setFocus }) => 
   (cc && from && to) ? 
     (
       <Wrapper>
         <Title>From</Title>
-        <Person { ...from } />
-
+        <Person {...from} />
+        
         <Title>To</Title>
-        <Person { ...to } />
+        <Person {...to} />
         
         {cc.length > 0 && <Title>CC'd</Title> }
-        {cc.map((person, key) =>
-          <Person key={key} { ...person } />
+        {cc.map((ccd, key) =>
+          <Person {...ccd} />
         )}
       </Wrapper>
     ) : 
