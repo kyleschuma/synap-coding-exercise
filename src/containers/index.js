@@ -1,28 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { Provider } from 'react-redux';
 
-import { people } from '../ducks';
-import { Layout, Person } from '../components';
+
+import { Layout, Search } from '../components';
 import Messages from './messages';
 import People from './people';
 
-
-const withConnection = connect(
-  ({ people }) => ({ 
-    person: people.results[people.focus]
-  }),
-  dispatch => ({
-    clearFocus: () => dispatch(people.setFocus(undefined)), 
-  })
-);
-
-export default withConnection(({ person, clearFocus }) => 
-  <Layout>
-    <People />
-    { 
-      person ? 
-        <Person { ...person } onClose={() => clearFocus()} /> : 
-        <Messages /> 
-    }
-  </Layout>
+export default ({ store }) => ( 
+  <Provider store={store}>
+    <Layout 
+      people={<People />}
+      search={<Search placeholder="Search messages" />}
+      messages={<Messages />} 
+    />
+  </Provider>
 );

@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 import { messages, reducer } from './ducks';
@@ -12,9 +11,7 @@ const store = createStore(reducer, applyMiddleware(thunk));
 store.dispatch(messages.load());
 
 render(
-  <Provider store={store}>
-    <Container />
-  </Provider>, 
+  <Container store={store} />, 
   document.getElementById('root')
 );
 registerServiceWorker();

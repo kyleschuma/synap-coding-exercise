@@ -8,8 +8,13 @@ import { Avatar } from './avatar';
 const Wrapper = Styled.aside`
   display: flex; 
   flex-direction: column;
-
   border-right: #f0f0f0 solid 1px;
+
+  @media screen and (max-width: 640px) {
+    flex-direction: row;
+    border-bottom: #f0f0f0 solid 1px;
+    border-right: none;
+  }
 `;
 const Title = Styled.h2`
 
@@ -18,6 +23,10 @@ const Title = Styled.h2`
   font-weight: 100;
   line-height: 2rem;
   margin: .5rem;
+
+  @media screen and (max-width: 640px) {
+    display: none;
+  }
 `;
 
 const withPopoverState = withStateHandlers(
@@ -43,6 +52,7 @@ const Company = Styled(({ className, description, logo, name }) =>
   background: #fff;
   border: #f0f0f0 solid 1px;
   padding: 1rem;
+  max-width: 384px;
 
   img { 
     height: 4rem;

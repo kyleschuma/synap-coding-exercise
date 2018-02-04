@@ -3,10 +3,9 @@ import Styled from 'styled-components';
 import Infinite from 'react-infinite-scroll-component';
 
 import { Loading } from './loading';
-import { Search } from './search';
 
 
-const Wrapper = Styled.section`
+const Wrapper = Styled.div`
   flex: 1; 
   display: flex; 
   flex-direction: column;
@@ -27,7 +26,7 @@ export class Messages extends React.Component {
 
   componentDidMount() { 
     
-    const height = this.wrapper.offsetHeight - this.search.offsetHeight;
+    const height = this.element.offsetHeight;
     this.setState({ height });
   }
 
@@ -37,12 +36,11 @@ export class Messages extends React.Component {
     const { height } = this.state; 
     
     return (
-      <Wrapper innerRef={el => this.wrapper = el}>
-        <Search innerRef={el => this.search = el} placeholder="Search Messages" />
+      <Wrapper innerRef={el => this.element = el}>        
         <Infinite hasMore={true} height={height} loader={<Loading />} next={next}>
           {children}
         </Infinite>
       </Wrapper>
-    )
+    );
   }
 }
