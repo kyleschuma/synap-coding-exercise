@@ -1,6 +1,8 @@
 import React from 'react';
 import Styled from 'styled-components';
 
+import { Paragraph } from './typography';
+
 const Wrapper = Styled.div`
   display: flex; 
   cursor: ${props => props.onClick === undefined ? 'inherit' : 'pointer'};
@@ -23,11 +25,7 @@ const Img = Styled.img`
     height: 48px;
   }
 `;
-const Title = Styled.p`
-  font-size: .8rem;
-  font-weight: 100;
-  line-height: 1rem;
-
+const Title = Styled(Paragraph)`
   @media screen and (max-width: 640px) {
     font-size: .6rem;
     text-align: center;

@@ -1,16 +1,7 @@
 import React from 'react';
 import Styled from 'styled-components';
 
-export const Layout = Styled(({ className, search, people, messages, error }) => 
-  <div className={className}>
-    {people}
-    <section className="content">
-      {error}
-      {search}
-      {messages}
-    </section>
-  </div> 
-)`
+const Wrapper = Styled.div`
   display: flex;
   flex-direction: row;
   width: 100vw;
@@ -19,12 +10,21 @@ export const Layout = Styled(({ className, search, people, messages, error }) =>
   @media screen and (max-width: 640px) {
     flex-direction: column;
   }
-
-  .content {
-    flex: 1; 
-    display: flex;
-    flex-direction: column;
-  }
-
 `;
+const Content = Styled.section`
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Layout = ({ search, people, messages, error }) => (
+  <Wrapper>
+    {people}
+    <Content>
+      {error}
+      {search}
+      {messages}
+    </Content>
+  </Wrapper> 
+);
 
